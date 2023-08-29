@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<style>
+    .container {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .item {
+    margin: 0;
+  }
+</style>
+    
+
+    <div id="root"></div>
+    <center> <button style="color: brown; " onclick="api1caller()" >click here</button></center>
+
+    <div class="container">
+   <div class="item">
+    
+    <script>
+        async function api1caller(){
+           
+            let div=document.getElementById('root')
+            let api=fetch('https://data.covid19india.org/data.json')
+            api=await(await api).json()
+
+            api.statewise.map((items)=>{
+               
+                
+                let  h1=document.createElement('h1')
+                let h2=document.createElement('h2')
+                let h3=document.createElement('h3')
+                let h4=document.createElement('h4')
+
+
+                
+
+                h1.innerHTML=`statecode:${items.statecode}`
+                h2.innerHTML=`active case: ${items.active}`
+                h3.innerHTML=`death cases: ${items.deaths}`
+                h4.innerHTML=`recovered : ${items.recovered}`
+                div.appendChild(h1)
+                div.appendChild(h2)
+                div.appendChild(h3)
+                div.appendChild(h4)
+            })
+            
+
+            
+           
+            console.log("api", api.statewise)
+        }
+      //how to display itemin row?
+
+    </script>
+</div>
+</div>
+
+</body>
+</html>

@@ -60,14 +60,17 @@
 </div>
 <div class="row">
     <script>
-        let api1=fetch('https://data.covid19india.org/data.json')
+
+
+      
+        let api1=fetch('https://fakestoreapi.com/products')
         let api2=fetch("https://jsonplaceholder.typicode.com/comments")
         let api3=fetch("https://jsonplaceholder.typicode.com/posts")
-        
+        let api4=fetch("https://jsonplaceholder.typicode.com/photos")
         
         async function api1caller(){
       
-          let api1=fetch('https://data.covid19india.org/data.json')
+          let api1=fetch('https://fakestoreapi.com/products')
           api1=await(await api1).json()
           console.log("api 1", api1)
           let api2=fetch('https://jsonplaceholder.typicode.com/comments')

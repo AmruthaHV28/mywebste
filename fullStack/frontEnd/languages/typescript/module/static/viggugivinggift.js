@@ -1,3 +1,3 @@
-let viggugift=[{name:viggu, gift:doll} ]
+let gift1={name:'ambrutha',gift:'teddy bear'}
 
-console.log(viggugift)
+export default gift1

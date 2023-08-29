@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pokemon API Names</title>
+</head>
+<body>
+<table id="pokemonTable">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>URL</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script>
+// Function to create a clickable link
+function createLink(url) {
+  const link = document.createElement('a');
+  link.href = url;
+  link.textContent = url;
+  link.target = '_blank'; // Open link in a new tab
+  return link;
+}
+
+// Fetch data from the API
+fetch('https://pokeapi.co/api/v2/pokemon/')
+  .then(response => response.json())
+  .then(data => {
+    const pokemonTable = document.getElementById('pokemonTable').getElementsByTagName('tbody')[0];
+
+    data.results.forEach(pokemonInfo => {
+      const row = document.createElement('tr');
+      
+      const nameCell = document.createElement('td');
+      nameCell.textContent = pokemonInfo.name;
+      row.appendChild(nameCell);
+
+      const urlCell = document.createElement('td');
+      const link = createLink(pokemonInfo.url);
+      urlCell.appendChild(link);
+      row.appendChild(urlCell);
+
+      pokemonTable.appendChild(row);
+    });
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error);
+  });
+</script>
+</body>
+</html>

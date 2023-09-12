@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Stopwatch</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    #stopwatch {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    #controls {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="stopwatch">00:00:00</div>
+  <div id="controls">
+    <button id="startBtn">Start</button>
+    <button id="stopBtn">Stop</button>
+    <button id="resetBtn">Reset</button>
+  </div>
+  <script>
+    let startTime;
+    let intervalId;
+
+    function startStopwatch() {
+      startTime = new Date().getTime();
+      intervalId = setInterval(updateStopwatch, 10);
+    }
+
+    function stopStopwatch() {
+      clearInterval(intervalId);
+    }
+
+    function resetStopwatch() {
+      clearInterval(intervalId);
+      document.getElementById('stopwatch').textContent = '00:00:00';
+    }
+
+    function updateStopwatch() {
+      const currentTime = new Date().getTime();
+      const elapsedTime = currentTime - startTime;
+
+      const hours = Math.floor(elapsedTime / 3600000);
+      const minutes = Math.floor((elapsedTime % 3600000) / 60000);
+      const seconds = Math.floor((elapsedTime % 60000) / 1000);
+      const milliseconds = elapsedTime % 1000;
+
+      const timeString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(3, '0')}`;
+      document.getElementById('stopwatch').textContent = timeString;
+    }
+    
+
+    document.getElementById('startBtn').addEventListener('click', startStopwatch);
+    document.getElementById('stopBtn').addEventListener('click', stopStopwatch);
+    document.getElementById('resetBtn').addEventListener('click', resetStopwatch);
+  </script>
+</body>
+</html>

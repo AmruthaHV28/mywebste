@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GitHub User Info</title>
+</head>
+<body><center>
+    <button id="fetchUserButton">github</button></center>
+    <div id="userInfo"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const fetchButton = document.getElementById("fetchUserButton");
+            fetchButton.addEventListener("click", fetchUserInfo);
+        });
+
+        function fetchUserInfo() {
+            const apiUrl = "https://api.github.com/users/mojombo"; // GitHub user API URL
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(user => {
+                    displayUserInfo(user);
+                })
+                .catch(error => console.error("API call error:", error));
+        }
+
+        function displayUserInfo(user) {
+            const userInfoContainer = document.getElementById("userInfo");
+            userInfoContainer.innerHTML = ""; // Clear existing data
+
+            const userAvatar = document.createElement("img");
+            userAvatar.src ='https://avatars.githubusercontent.com/u/1?v=4';
+            userAvatar.alt = user.login;
+
+            const userName = document.createElement("h2");
+            userName.textContent = user.login;
+
+            const userHtmlUrl = document.createElement("a");
+            userHtmlUrl.href = user.html_url;
+            userHtmlUrl.textContent = "GitHub Profile";
+
+            userInfoContainer.appendChild(userAvatar);
+            userInfoContainer.appendChild(userName);
+            userInfoContainer.appendChild(userHtmlUrl);
+        }
+    </script>
+</body>
+</html>

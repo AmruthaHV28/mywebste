@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSONPlaceholder API Example</title>
+</head>
+<body style="background-color: aquamarine;"><center>
+    <div class="row"></div><br><br>
+    <table id="photoTable">
+        <thead>
+            <tr>
+                <th style="font-size: 30px;">ID</th><br>
+                <th  style="font-size: 30px;">Title</th><br>
+                <th  style="font-size: 30px;">Image</th>
+                <th  style="font-size: 30px;">price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table content will be added here using JavaScript -->
+        </tbody>
+    </table></center>
+
+    <script>
+        // Fetch data from the JSONPlaceholder API
+        fetch('https://fakestoreapi.com/products')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.querySelector('#photoTable tbody');
+
+                data.forEach(photo => {
+                    const row = document.createElement('tr');
+
+                    const idCell = document.createElement('td');
+                    idCell.textContent = photo.id;
+                    //idCell.style.padding="20px"
+                    row.appendChild(idCell);
+
+                    const titleCell = document.createElement('td');
+                    titleCell.textContent = photo.title;
+                    titleCell.style.fontSize="20px"
+                    titleCell.style.padding="30px"
+                    row.appendChild(titleCell);
+
+                    const thumbnailCell = document.createElement('td');
+                    const thumbnailImg = document.createElement('img');
+                    thumbnailImg.src = photo.image;
+                    thumbnailImg.style.width="200px"
+                    thumbnailImg.style.height="200px"
+                    thumbnailCell.appendChild(thumbnailImg);
+                    row.appendChild(thumbnailCell);
+
+
+                    const price = document.createElement('td');
+                    price.textContent = photo.price;
+                    price.style.margin="20px"
+                    price.style.padding="30px"
+                    price.style.fontSize="30px"
+
+                    row.appendChild(price);
+
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    </script>
+</body>
+</html>

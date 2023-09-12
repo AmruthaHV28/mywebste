@@ -1,0 +1,22 @@
+<script>
+    /* let array =[3,3 ,2,2,9,9,1,1];
+
+    let data = array.reduce((repeate, currentValue) => {
+        if (!repeate.includes(currentValue)) {
+            repeate.push(currentValue);
+        }
+        return repeate;
+    }, []);
+    
+    console.log(data); */
+    let array = [3,3,2,2,9,9,1,1];  //8 iteration
+
+let data= array.reduce((repeate, currentValue) => {
+    console.log("imrepeat",repeate)
+    return repeate.includes(currentValue) ? repeate : [...repeate, currentValue]; //if condition true before the : will executed otherwise after the :will executed
+}, []);
+
+console.log(data); 
+
+   
+</script>

@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pokemon API Table</title>
+</head>
+<body>
+<table id="pokemonTable">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Height</th>
+      <th>Weight</th>
+      <th>Abilities</th>
+      <th>URL</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script>
+// Function to create and populate a table row
+function createTableRow(pokemon) {
+  const row = document.createElement('tr');
+
+  const nameCell = document.createElement('td');
+  nameCell.textContent = pokemon.name;
+  row.appendChild(nameCell);
+
+  const heightCell = document.createElement('td');
+  heightCell.textContent = pokemon.height;
+  row.appendChild(heightCell);
+
+  const weightCell = document.createElement('td');
+  weightCell.textContent = pokemon.weight;
+  row.appendChild(weightCell);
+
+  const abilitiesCell = document.createElement('td');
+  abilitiesCell.textContent = pokemon.abilities.map(ability => ability.ability.name).join(', ');
+  row.appendChild(abilitiesCell);
+   
+  const urlCell = document.createElement('td');
+  urlCell.textContent = pokemon.results.url;
+  row.appendChild(urlCell);
+
+  console
+
+  return row;
+}
+
+// Fetch data from the API
+fetch('https://pokeapi.co/api/v2/pokemon/')
+  .then(response => response.json())
+  .then(data => {
+    const pokemonTable = document.getElementById('pokemonTable').getElementsByTagName('tbody')[0];
+    
+    data.results.forEach(pokemonInfo => {
+      fetch(pokemonInfo.url)
+        .then(response => response.json())
+        .then(pokemonData => {
+          const tableRow = createTableRow(pokemonData);
+          pokemonTable.appendChild(tableRow);
+        });
+    });
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error);
+  });
+</script>
+</body>
+</html>
